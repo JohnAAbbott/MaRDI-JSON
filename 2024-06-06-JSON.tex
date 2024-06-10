@@ -1,0 +1,1145 @@
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_GB
+
+%%\documentclass[preprint,12pt]{elsarticle}
+\documentclass{article}
+
+% \today redefined *inside* the document
+
+
+\usepackage[style=iso]{datetime2}
+%%\renewcommand{\dateseparator}{--}
+
+%% \journal{NOWHERE}
+
+% Make sure that you include the following two packages.
+%\usepackage{yjsco}
+%\usepackage{natbib}
+
+
+% \documentclass[final,1p,times]{elsarticle}
+\usepackage{float}
+
+\usepackage{enumitem} % for parsep, itemsep...
+\usepackage{xspace} % for \xspace
+\usepackage{xcolor} % for coloured notes
+\usepackage{newverbs} % because \verb does not allow colour
+
+\newcommand{\redverb}{\collectverb{\color{red}\colorbox{gray!20}}}
+\newcommand{\blueverb}{\collectverb{\color{blue}\colorbox{gray!20}}}
+\newcommand{\greenverb}{\collectverb{\color{green}\colorbox{gray!20}}}
+\usepackage{algorithm,algpseudocode}
+
+%\usepackage{tikz}
+     %\usepackage{graphicx}   % Add graphics capabilities
+\usepackage{amsmath,amssymb}
+     % Better maths support & $more symbols
+\usepackage{amsthm}
+\usepackage{bm}
+     % Define \bm{} to use bold math fontst
+\usepackage{pdfsync}
+     % enable tex source and pdf output synchronicity
+\usepackage{subfigure}
+\usepackage{color}
+\usepackage[english]{babel}
+
+\usepackage[T1]{fontenc}
+%\usepackage[hidelinks]{hyperref} % for clickable toc and references
+%\usepackage{yfonts}
+
+% Make like old template
+\setlist{itemsep=-4pt,topsep=0pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{12pt}
+
+
+
+% Additional algorithmicx keywords
+\algnewcommand{\algorithmicgoto}{\textbf{go to}}%
+\algnewcommand{\Goto}[1]{\algorithmicgoto~step~\ref{#1}}%
+\newcommand{\Break}{\textbf{break}}
+\newcommand{\Continue}{\textbf{continue}}
+\newcommand{\To}{\textbf{to}}
+\newcommand{\DownTo}{\textbf{downto}}
+\newcommand{\ForEach}[1]{\For{\textbf{each} #1}}
+\newcommand{\EndForEach}{\EndFor{} \textbf{each}}
+\algdef{SE}[DOWHILE]{Do}{DoWhile}{\algorithmicdo}[1]{\algorithmicwhile\ #1}
+\algnewcommand{\IIf}[1]{\State\algorithmicif\ #1\ \algorithmicthen}
+\algnewcommand{\ElseIIf}[1]{\algorithmicelse\ #1}
+\algnewcommand{\ElseI}[1]{\algorithmicelse\ #1}
+\algnewcommand{\EndIIf}{\unskip\ \algorithmicend\ \algorithmicif}
+
+\renewcommand{\labelenumi}{(\alph{enumi})}  % items as (a) (b) ..
+
+%% \theoremstyle{plain}
+%% \newtheorem{theorem}{Theorem}[section]
+%% \newtheorem{proposition}[theorem]{Proposition}
+%% \newtheorem{lemma}[theorem]{Lemma}
+%% \newtheorem{corollary}[theorem]{Corollary}
+%% \newtheorem{assumption}[theorem]{Assumptions}
+
+%% \theoremstyle{definition}
+%% \newtheorem{example}[theorem]{Example}
+%% \newtheorem{definition}[theorem]{Definition}
+%% \newtheorem{remark}[theorem]{Remark}
+%% %\newtheorem{algorithm}[theorem]{Algorithm}
+%% \newtheorem{notation}[theorem]{Notation}
+
+
+\def\exqed{\hfill $\diamond$}
+
+%%strings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                FONTS SWITCHES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\let\goth\mathfrak
+\def\bbb#1{{\mathbb{#1}}}
+\def\Cal#1{{\goth{#1}}}
+\let\sem=\bf
+
+%\let\phi=\varphi
+%\let\rho=\varrho
+%\let\theta=\vartheta
+%\let\epsilon=\varepsilon
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   Abbreviations
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\numer{\mathop{\rm numer}\nolimits}
+\def\denom{\mathop{\rm denom}\nolimits}
+
+\newcommand{\MaRDIJSON}{MaRDI-JSON}
+
+\newcommand \ie {\textit{i.e.}}
+\newcommand \eg {\textit{e.g.}}
+\newcommand \etc {\textit{etc.}}
+\newcommand \valuation {\nu}  % in mathmode!
+\newcommand \notdiv {{\not|\,}}
+\newcommand \Mat {\mathop{\rm Mat}}
+\newcommand \adj {\mathop{\rm adj}}
+\newcommand \softO {O^\sim}  % in mathmode
+
+\newcommand \CC {{\mathbb C}}
+\newcommand \FF {{\mathbb F}}
+\newcommand \NN {{\mathbb N}}
+\newcommand \QQ {{\mathbb Q}}
+\newcommand \RR {{\mathbb R}}
+\newcommand \TT {{\mathbb T}}
+\newcommand \ZZ {{\mathbb Z}}
+
+\def\tfrac #1#2{{\textstyle\frac{#1}{#2}}}
+
+\def\grey#1{\textcolor{gray}{#1}}
+\def\red#1{\textcolor{red}{#1}}
+\def\green#1{\textcolor{green}{#1}}
+\def\blue#1{\textcolor{blue}{#1}}
+
+\def\cocoa{\mbox{\rm
+C\kern-.13em o\kern-.07 em C\kern-.13em o\kern-.15em A}}
+\def\apcocoa{\mbox{\rm
+A\kern-0.13em p\kern -0.07em C\kern-.13em o\kern-.07 em C\kern-.13em
+o\kern-.15em A}}
+
+\newcommand{\claus}[1]{\begin{color}{red}{\tiny Claus:} #1\end{color}}
+\newcommand{\john}[1]{\begin{color}{blue}{\tiny John:} #1\end{color}}
+\newcommand{\cancel}[1]{\begin{color}{gray}{{\tiny #1}}\end{color}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\renewcommand*{\today}{2024-05-23} %% MUST BE INSIDE \begin{doc} ... \end{doc}
+
+%% \begin{frontmatter}
+
+\title{MaRDI/OSCAR JSON Serialization}
+
+\author{
+  John Abbott%\inst{1}%\orcidID{0000-0001-5608-3835}
+  \and
+  Jeroen Hanselman%\inst{1}
+  \and
+  Antony della Vecchia%\inst{2}
+\and \red{Michael Joswig?}
+%  \and ???
+}
+%
+%%LLNCS \authorrunning{J.~Abbott, C.~Fieker}
+% First names are abbreviated in the running head.
+% If there are more than two authors, 'et al.' is used.
+%
+%%\institute{Rheinland-Pf\"alzische Technische Universit\"at Kaiserslautern\\
+%%\email{John.Abbott@rptu.de, Jeroen.Hanselman@rptu.de, antonydellaveccia@gmail.com}
+%
+\maketitle              % typeset the header of the contribution
+
+
+\begin{abstract}
+  Description of MaRDI/OSCAR JSON serialization format with enough detail
+  to permit a complete implementation.
+  Also some discussion about design aspects.  And maybe some examples.
+\end{abstract}
+
+%%Graphical abstract
+%\begin{graphicalabstract}
+%\includegraphics{grabs}
+%\end{graphicalabstract}
+
+%%Research highlights
+%\begin{highlights}
+%\item Research highlight 1
+%\item Research highlight 2
+%\end{highlights}
+
+
+%% KEYWORDS (in various different styles)
+%Keywords: {Determinant, integer matrix, unimodularity}\\
+%MSC-2020: {15--04,  15A15,  15B36,  11C20}
+
+%% SPRINGER LLNCS
+%\keywords{Serialization \and JSON \and OSCAR \and MaRDI}
+% Determinant, integer matrix, unimodularity, 15--04,  15A15,  15B36,  11C20
+
+%% Keywords: ELSARTICLE
+%% \begin{keyword}
+%% Determinant \sep integer matrix \sep unimodularity
+
+%% \MSC[2020] 15--04 \sep  15A15  \sep  15B36  \sep  11C20
+%% \end{keyword}
+
+%% \end{frontmatter}
+
+%\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\red{Text in red indicates points to be discussed.}  \blue{Text in blue contains particular notes.}
+
+We present the new MaRDI serialization format, called
+\textit{\MaRDIJSON.}  This may be used for archiving (\eg~databases of
+mathematical objects), and for interprocess communication.  The format
+uses JSON as vehicle: \ie~a serialized object is a valid JSON
+object~---~we use standard JSON without extensions (see official
+definition~\textbf{[JSON-defn]}) so that any standard implementation
+of a JSON (de-)serializer may be used.
+
+JSON is a simple, flexible and stable format.  We regard it as
+sufficiently stable to form the basis of the MaRDI serialization
+format.
+\red{Discuss using I-JSON instead: this is better for
+  reproducibility (see \textbf{[I-JSON]}).}
+
+To be able to make strong guarantees about {\MaRDIJSON} following
+``FAIR'' guidelines, we must ensure that its definition does not
+depend on third party behaviour outside our control: \eg~currently
+some aspects of the definition depend on the (poorly documented)
+behaviour of Julia, which may be altered without notice.  We could
+resolve this by supplying our own specification of the apparent
+current behaviour of Julia/OSCAR (but then in the future the OSCAR
+implementation of {\MaRDIJSON} must ensure that it adheres to
+\textit{our} specification).
+
+In Section~\ref{sec:examples} we look at some examples which
+illustrate that it is not necessarily easy to ``do the right thing''.
+
+
+\subsection{Reproducibility {\&} future-proofing}
+\label{sec:Reproducibility}
+
+An important goal of {\MaRDIJSON} is to offer a mathematical data
+serialization format supporting a strong form of the FAIR principles:
+\textbf{F}indable, \textbf{A}ccessible, \textbf{I}nteroperable,
+\textbf{R}e-usable.  These principles impose some constraints on the
+format: most especially we strive for mathematical unambiguity (which
+is essential for reproducibility).
+
+The weakest goal is that, for any serializable object \verb|obj|, we have
+\begin{verbatim}
+  save(FileName, obj);
+  copy = load(FileName);
+  copy == obj; # expect result "true"
+\end{verbatim}
+For example, in OSCAR this should work whether or not caching is used.
+\red{Must the copy contain all the extra hidden cached info inside obj?}
+
+A more ambitious, analogous goal is for this to work as expected between
+two different computer algebra systems.  The simplest situation is where
+system XYZ offers an \textit{echo service} which can be implemented as follows:
+\begin{verbatim}
+  RemoteCopy = load(FileName1);
+  save(FileName2, RemoteCopy);
+\end{verbatim}
+The source system can check the echo as follows:
+\begin{verbatim}
+  save(FileName1, obj);
+  # Wait for echo
+  echo = load(FileName2);
+  echo == obj;  # expect result "true"
+\end{verbatim}
+In other words, if system XYZ succeeds in de-serializing the content
+of \verb|FileName1| then it should be able to send back something the
+original system regards as being equal to what was sent~---~\red{this
+  may be overly restrictive!}  Note that, in general, we do not expect
+the contents of \verb|FileName1| and \verb|FileName2| to be the same.
+
+There are several cases for what \textit{system XYZ} might be:
+\begin{itemize}
+\item \textit{(easiest)} another instance of the same version of OSCAR running on the same platform
+\item another instance of the same version of OSCAR running on another platform
+\item a different version of OSCAR (running on same/another platform)
+\item \textit{(hardest)} a different CAS altogether (\eg~CoCoA or Magma)
+\end{itemize}
+
+\red{Discuss: reproducibility should be independent of platform:
+  \eg~there should be no problems exchanging {\MaRDIJSON} objects
+  between a 64-bit OSCAR session and a 32-bit OSCAR session (or a
+  128-bit session).}
+
+
+\blue{\textbf{NOTE:} the guidelines on the FAIR website are rather vague and wishy-washy:}\\
+\verb|https://www.go-fair.org/fair-principles/|
+
+
+\subsubsection{Consequences of Interoperability}
+
+Here we adopt a rigorous and practical interpretation of ``interoperability''
+which goes beyond the nebulous guidelines set out by FAIR.
+
+We summarize here our basic notion of interoperability.
+Let \verb|obj| be a mathematical object which can be serialized to {\MaRDIJSON}.
+Let \verb|copy| be the mathematical object created by the de-serialization of
+that {\MaRDIJSON} message.  Then \verb|obj| and \verb|copy| must have the
+same the mathematical meaning.  In particular, if the system attempting to
+de-serialize is unable to represent the underlying mathematical object then
+de-serialization must fail.  Conversely, ideally if the system attempting to
+de-serialize is capable of representing the underlying mathematical object
+then de-serialization should succeed (provided adequate resources are available).
+
+\red{Discuss: A {\MaRDIJSON} de-serializer should document which {\MaRDIJSON} object
+types it can handle.}
+
+
+\textbf{NOTE:} Some parts of the {\MaRDIJSON} object may never be ``read'': \eg~an
+  entry in \blueverb|_refs| which is never actually referred to.  If these
+  parts are incorrect/inconsistent then that may not be detected (\eg~because
+  the reader does not even understand them).
+
+
+\subsubsection{Consequences of Accessibility and Re-usability}
+
+The {\MaRDIJSON} specification will evolve over time, so every serialized object
+includes an indication of which version of {\MaRDIJSON} was used to encode it.
+
+Some future changes will be ``backward-compatible'', so that old
+{\MaRDIJSON} serializations do not require updating; some will not be
+``backward-compatible'', meaning that some old {\MaRDIJSON}
+serializations must be modified (\eg~names of required keys have
+changed, or the structure of a value associated to a certain key has
+been altered).
+
+An evolution which simply extends {\MaRDIJSON} by adding new types
+does not require any transformation of existing serializations.  Such
+an evolution is ``backward-compatible'', but must nevertheless be
+clearly documented.
+
+
+For evolutions which are not ``backward-compatible'', separate
+programs will be supplied which can be used to automatically update
+{\MaRDIJSON} objects compatible with the version immediately prior to
+the evolutionary step (and any earlier versions with which it is
+``backward-compatible'').  This ensures that archived data remains
+accessible without having to make use of ``ancient'' de-serializers.
+
+
+\red{[Discuss:] In very rare circumstances the automatic updater may
+  report failure with a helpful message indicating how the update
+  could be achieved manually, \eg~if extra information is required
+  beyond that which can be deduced automatically?}
+
+
+
+
+\subsubsection{Consequences of Findability}
+
+Most aspects of findability are outside the remit of {\MaRDIJSON}.
+But the possibility to put comments inside a {\MaRDIJSON} object
+may contribute usefully to findability.  Currently there is no
+explicit mechanism for inserting comments, though current conventions
+are that key--value pairs where the key is not one of those defined
+by {\MaRDIJSON} are silently ignored; thus any ``undefined'' key
+could be associated to a comment string.
+
+\red{Discuss: We suggest adding an optional named key for comments, at least
+to achieve uniformity.  Possibly such comments could be structured?}
+
+
+%--------------------------------------------
+\subsection{JSON Schemas}
+
+JSON Schemas are a formal way of specifying the expected structure of
+a JSON object.  One may specify required keys in a key--value context,
+and also optional keys; but there seems to be no way to forbid other
+keys.  Consult some (relatively old) documentation at:
+\begin{verbatim}
+https://json-schema.org/draft/2020-12/
+          json-schema-validation#section-6.1.1
+\end{verbatim}
+
+Antony has produced an initial schema for {\MaRDIJSON}: see URL
+\begin{verbatim}
+https://www.oscar-system.org/schemas/mrdi.json
+\end{verbatim}
+This schema is not so digestible for humans, and appears to be still incomplete.
+
+
+\subsubsection*{Acknowledgements}
+
+The authors are supported by the Deutsche Forschungsgemeinschaft,
+specifically via ``OSCAR'' Project-ID~286237555~--~TRR 195, and via ``MaRDI – Mathematische Forschungsdateninitiative'' Project-ID-460135501, NFDI 29/1.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Preliminaries}
+\label{sec:prelim}
+
+For simplicity of presentation we shall consider the data as a JSON
+tree, regarding serialization to {\&} de-serialization from a
+byte-stream as a sub-task (which either succeeds or fails, and whose
+details we shall largely ignore here).
+
+To help support reproducibility we impose a restriction on the JSON
+objects: \textbf{duplicate keys in the key--value pairs in any
+  {\MaRDIJSON} object/sub-object are not permitted.}  The serializer
+must not produce {\MaRDIJSON} objects with duplicate keys in any
+sub-object, and the de-serializer must report an error \red{(Discuss: or issue
+  a warning?)} if duplicate keys are encountered in an object.
+
+\blue{PROBLEM: not every JSON de-serializer \textit{can be persuaded}
+  to report duplicates; but an I-JSON de-serializer must report them.}
+Unfortunately the JSON standard is very unhelpful here!  The
+requirement that the de-serializer report an error when duplicate keys
+are encountered can be relaxed: so long as the user guarantees somehow
+that there are no duplicate keys (\eg~using an independent program to
+check this), the {\MaRDIJSON} de-serialization may proceed without
+risk of impinging on the reproducibility.
+
+\red{Discuss: we must clarify what de-serialization of an incorrect {\MaRDIJSON} object will do~---~do we allow \textit{dead branches} (see Section{sec:DeadBranches}) to trigger errors?}
+
+
+\subsection{Subset of JSON}
+
+The JSON standard~\textbf{(JSON-std)} offers several types of value:
+\begin{itemize}
+\setlength{\itemsep}{-3pt}
+\item \textbf{object} comprising an unordered set of key--value pairs
+\item \textbf{array} an ordered succession of zero-or-more values
+\item \textbf{string} enclosed in double-quotes
+\item \textbf{number} a signed integer or floating-point number (in decimal, with ``exponent notation'')
+\item \textbf{true, false, null} three constants
+\end{itemize}
+
+{\MaRDIJSON} uses only \blue{\textbf{objects, arrays and strings:}} no
+numbers, and no constants.  Note that strings are used to represent
+all numerical values (see Section~\ref{sec:numbers})~---~this way
+there is no distinction between ``machine representable numbers''
+(which depends on the underlying platform) and ``unbounded numbers''.
+
+\red{Discuss using the analogous subset of I-JSON instead: this is
+  better for reproducibility (see \textbf{[I-JSON]}).}
+
+
+\subsection{Strings}
+
+There appear to be no restrictions on strings in JSON: all unicode
+characters are permitted (and serialized via UTF-8), and there is no
+length limit~---~this is useful for serializing large integers and
+rationals.
+
+Keys in key--value pairs are strings: in valid {\MaRDIJSON} objects
+all keys are short (currently at most 36 bytes long using UTF-8 encoding).
+Some JSON de-serializers accept a length limit for keys: we could use
+this feature to detect JSON input not compliant with {\MaRDIJSON}.
+
+
+\subsection{Key--Value pairs}
+
+In Section~\ref{sec:MardiKeyValuePairs} we give a comprehensive
+description of the \textit{context-dependent} key--value pairs which
+may appear in a valid {\MaRDIJSON} object.  The permitted keys are
+case-sensitive, and contain only latin letters (namely \texttt{a-z}
+and \texttt{A-Z}) or an underscore character (with ASCII code 95).
+Moreover the keys are short: at most 36 bytes.  \red{Discuss: Impose a length limit?  Allow/forbid whitespace inside the keys?}
+
+Some/most key--value pairs are obligatory: it is an error if the pair is absent.
+
+\red{Discuss: Is it an error for an unexpected key to be present?  Likely inconvenient if future extensions of {\MaRDIJSON} define new (optional?) keys.}
+
+
+
+\subsection{Numbers}
+\label{sec:numbers}
+
+{\MaRDIJSON} can represent two types of number (both as decimal strings):
+\begin{itemize}
+  \setlength{\itemsep}{1pt}
+\item \textbf{integer:} a decimal string with an optional single, initial minus sign; no whitespace or other characters are permitted; leading zeroes are permitted (but discouraged); a leading plus sign ``\verb|+|'' is not permitted.
+\item \textbf{rational:} a string comprising signed decimal numerator,
+  a division-mark substring, and an unsigned decimal denominator; no
+  whitespace or other characters are permitted~---~syntactically a zero
+ denominator is allowed.
+\end{itemize}
+
+\blue{\textbf{NOTE:} The current OSCAR prototype delegates parsing of integers and rationals
+to Julia: this is not compliant with the rules above which forbid whitespace; compliance can easily be achieved by using regexp matching to check that the strings contain valid decimal representations.}
+
+Currently the division-mark in a rational is ``\texttt{//}'' (double
+solidus) since this is what Julia/OSCAR uses~---~this is an unnatural
+choice for anyone more accustomed to other systems/languages (\eg~in
+Python the operator exists but has a different meaning).  It should be
+easy to modify the current OSCAR prototype to use just ``\texttt{/}''
+instead by using appropriate regexp searches.  \red{Discuss: We could
+  allow other division-marks: a standard choice is ``\texttt{/}''
+  (single solidus).  Suggestion: allowed division-mark is single
+  solidus; if there is too much pressure from Julia fanatics then we
+  could allow both single and double solidus.}
+
+
+An integer string may appear where a rational string is expected: equivalently
+the division-mark and denominator may both be omitted, in which case a
+denominator value of 1 is assumed.
+
+In contrast, a rational with numerator and denominator whose value
+happens to be integer is not valid as an integer (\eg~since the
+characters of the division-mark are not permitted in an integer).
+
+\red{Discuss: Currently there is no way to indicate that the numerator and denominator are coprime.
+  We may consider introducing such a possibility at some later date; but there are
+  unresolved questions (\eg~must the receiver check coprimality anyway?)}
+
+
+\subsection{Dead Branches}
+\label{sec:DeadBranches}
+
+A {\MaRDIJSON} object may contain \textit{dead branches}, namely parts
+of the tree whose value is ignored: these could be values associated
+to ``unexpected keys'' in an object, or they could be the values
+associated to a UUID in \blueverb|_refs| but that UUID is never
+referred to.  Such dead branches are never traversed, so never checked
+for validity (or only minimally checked, \eg~if we impose restrictions
+on key-names in an object).
+
+\red{Dead branches are a minor nuisance, but we cannot easily outlaw them.}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Keys used in {\MaRDIJSON}}
+\label{sec:MardiKeyValuePairs}
+
+Here is a summary of the keys and structure of a valid {\MaRDIJSON}
+object.
+
+\subsection{Top level object}
+
+The root node must be a JSON object with exactly \green{(at least?)} the following keys:
+\begin{itemize}
+\item Key \blueverb|_ns| this is the ``namespace''; its associated value is
+  a JSON object with key \blueverb|Oscar| whose associated value is a
+  2-array of strings (first is a URL, second starts with \verb|1.1.0-DEV|)\\
+  \red{Value should be an object with sensible names for the keys?}
+% \verb|version|
+\item Key \blueverb|_type| has associated value (string or object) specifying
+  the mathematical type of serialized object: see Section~\ref{sec:MainTypes}
+\item Optional(?) key \blueverb|data| with associated value string or array or object~---~the correct structure of the associated value is determined by the value associated to the key \blueverb|_type|
+  \item Optional key \blueverb|_refs| with associated value an object: see Section~\ref{sec:refs}
+\end{itemize}
+
+\red{Discuss: why were these particular names for the keys chosen?
+  \eg~the leading underscores appear to be purposeless.}
+
+\red{What is the practical meaning of ``namespace'' in this context?  Would not ``MaRDI'' be a better decsription?  It is probably a good idea to record somewhere the identity of the system which produced the serialization.}
+
+
+\subsection{Refs}
+\label{sec:refs}
+
+The purpose of ``refs'' is to specify when two values are identical
+(or to enable the serialization of a DAG).  This is achieved by a JSON
+object whose keys are distinct IDs (see Section~\ref{sec:UUID}), each
+of whose associated value is a string, array or object.  The
+associated value typically represents an OSCAR type (currently).
+
+Here is an example to illustrate what we mean by ``identical values''.
+In OSCAR or several other computer algebra systems we can create the
+polynomial ring $\QQ[x]$.  But what happens if we create $\QQ[x]$
+twice with two separate commands?  In some systems we simply obtain
+two distinct program objects which happen to represent two rings which
+are canonically isomorphic (and also look the same); in other systems
+the second attempt at creation ``realizes'' that a program object
+representing the ring already exists, and this existing object is then
+re-used.
+
+In a system where there are two distinct copies of $\QQ[x]$ we can easily
+find ourselves in a situation where $f \in \QQ[x]$ and $g \in \QQ[x]$
+but the computer refuses to compute $f+g$ because they are in different rings!
+
+In {\MaRDIJSON} we can ensure that the two polynomials belong to the same ring
+by using ``refs''.  We do this by inserting into \blueverb|_refs| a key--value pair
+with the key being a new ID (say \greenverb|Ring123|), and the associated value is the {\MaRDIJSON}
+serialization of $\QQ[x]$; then we serialize $f$ and $g$ stating that they are
+elements of \greenverb|Ring123|.  This ensures that every system which reads the
+serialized object will place the de-serializations of $f$ and $g$ into the same
+ring.
+%As hinted above, if we serialize $f$ and $g$...
+
+\red{To protect against malformed {\MaRDIJSON} objects, a de-serializer
+  must include a check for infinite loops via ``refs''.}
+
+
+\subsubsection{Distinct IDs, UUIDs}
+\label{sec:UUID}
+
+One way to produce distinct IDs for values registered in \blueverb|_refs| is to
+use a 128-bit-UUID generator (aka.~GUID).  The resulting ID is customarily written in
+8-4-4-4-12 format: hexadecimal digits in blocks, separated by minus signs.
+
+The main advantage of 128-bit-UUIDs is that they are easy to generate, and they
+have a negligible chance of accidentally producing identical IDs.
+
+\red{Discuss: currently the IDs used for references are required to be in 8-4-4-4-12 format; is this requirement truly necessary?  If so, a de-serializer must check!}
+
+\blue{\textbf{QUESTION} Where exactly can a reference appear in a serialization?  Maybe only after ``params'' or ``base ring''?}
+
+
+\subsection{Main types}
+\label{sec:MainTypes}
+
+This section will be extended over time as {\MaRDIJSON} develops.  It is of
+importance to implementers of {\MaRDIJSON} interfaces (both serializers and de-serializers).
+
+\subsubsection{Basic Rings}
+\label{sec:BasicRings}
+
+\textbf{Ring of Integers}\\
+The serialization of the ring $\ZZ$ is simply \blueverb|{ "_type": "ZZRing" }|; this is used, for instance, when specifying the base ring of a matrix.
+The serialization of an element of $\ZZ$ has the form
+\begin{verbatim}
+  { "_type" : "ZZRingElem",
+    "data" : <decimal-string-of-integer>
+  }
+\end{verbatim}
+\blue{\textbf{NOTE:} the type here is a string, not an object!}
+
+\goodbreak
+\textbf{Field of Rationals}\\
+The serialization of the field $\QQ$ is simply \blueverb|{ "_type": "QQField" }|; this is used, for instance, when specifying the base ring of a matrix.
+The serialization of an element of $\QQ$ has the form
+\begin{verbatim}
+  { "_type" : "QQFieldElem",
+    "data" : <decimal-string-of-rational>
+  }
+\end{verbatim}
+\blue{\textbf{NOTE:} the type here is a string. not an object!}
+
+\textbf{Finite field}\\
+\blue{See also Section~\ref{sec:QnFiniteFields}!}
+The serialization currently depends on the
+internal representation in OSCAR (at least 3 different possibilities for prime
+finite fields!).  we give concrete examples for the residue class of
+33 modulo 97 (the general rule should then be obvious):
+\begin{itemize}
+  \item In a field created by \verb|GF(97)|  or by \verb|GF(ZZ(97))|  or by \verb|residue_field(97)| or by \verb|residue_field(ZZ(97))|
+\begin{verbatim}
+  { "_type" : {
+        "name" : "FqFieldElem",
+        "params" : {
+            "_type" : "FqField",
+             "data" : "97"
+        }
+    },
+    "data" : "33"
+  }
+\end{verbatim}
+\item In a field created by \verb|Native.GF(97)|  but not by \verb|Native.GF(ZZ(97))|
+\begin{verbatim}
+  { "_type" : {
+        "name" : "fpFieldElem",
+        "params" : {
+            "_type" : "Nemo.fpField",
+             "data" : "97"
+        }
+    },
+    "data" : "33"
+  }
+\end{verbatim}
+\item In a field created by \verb|Native.GF(ZZ(97))| but not by \verb|Native.GF(97)|
+\begin{verbatim}
+  { "_type" : {
+        "name" : "FpFieldElem",
+        "params" : {
+            "_type" : "Nemo.FpField",
+             "data" : "97"
+        }
+    },
+    "data" : "33"
+  }
+\end{verbatim}
+\end{itemize}
+
+\textbf{Residue Ring of $\ZZ$}\\
+\blue{See also Section~\ref{sec:QnFiniteFields}!}
+In OSCAR a ring constructed as a \verb|residue_ring| of $\ZZ$ is never
+regarded as a field; there are two internal representations which
+currently produce two distinct {\MaRDIJSON} serializations.  We give
+concrete examples for the class of 33 modulo 97:
+\begin{itemize}
+\item In a ring created by \verb|residue_ring(97)|
+\begin{verbatim}
+  { "_type" : {
+        "name" : "zzModRingElem",
+        "params" : {
+            "_type" : "Nemo.zzModRing",
+             "data" : "97"
+        }
+    },
+    "data" : "33"
+  }
+\end{verbatim}
+\item In a ring created by \verb|residue_ring(ZZ(97))|
+\begin{verbatim}
+  { "_type" : {
+        "name" : "ZZModRingElem",
+        "params" : {
+            "_type" : "Nemo.ZZModRing",
+             "data" : "97"
+        }
+    },
+    "data" : "33"
+  }
+\end{verbatim}
+\end{itemize}
+
+
+
+\subsubsection{Matrices}
+\label{sec:matrix}
+
+A matrix is serialized as follows:
+\begin{itemize}
+\item Key \blueverb|_type| has associated value an object with keys
+  \begin{itemize}
+  \item Key \blueverb|name| having a string value \greenverb|MatElem|
+  \item Key \blueverb|params| having an object value (usu.~via a ``ref'') with keys
+    \begin{itemize}
+    \item Key \blueverb|_type| having the string value \greenverb|MatSpace|
+    \item Key \blueverb|data| having an object value with keys
+      \begin{itemize}
+      \item Key \blueverb|base_ring| with associated value the serialization of a ring (typically via a ``ref'')
+      \item Key \blueverb|ncols| with associated value a decimal string of a non-negative integer
+      \item Key \blueverb|nrows| with associated value a decimal string of a non-negative integer
+      \end{itemize}
+    \end{itemize}
+  \end{itemize}
+\item Key \blueverb|data| has value a \textit{dense encoding of the matrix} as
+a rectangular array of arrays (of the correct lengths as determined by the values of \verb|nrows| and \verb|ncols| above); the outer array contains the rows in increasing index order, each serialized as an array; a row array contains the entries of that row in increasing column order, and each entry is the serialization of the corresponding matrix entry.
+\end{itemize}
+
+\blue{\textbf{NOTE: Julia-ism}} if the \blueverb|_type| is the string \greenverb|Matrix| then an error should be reported~---~the serialized object was a Julia structure, not an OSCAR structure.  Analogously if the type is \greenverb|Vector|.  Julia uses ``Matrix'' and ``Vector'' as synonyms for certain types of array which have no special mathematical properties.
+
+\red{Discuss: We hope that future versions of {\MaRDIJSON} will permit
+  other encodings than the dense one.  Also special handling may be
+  considered for matrices with 0 rows or columns.}
+
+
+\subsubsection{Polynomials}
+\label{sec:polynomial}
+
+A polynomial can be serialized in one of two ways depending (in OSCAR)
+on whether it is in a univariate polynomial ring (\verb|PolyRing|) or
+a multivariate polynomial ring (\verb|MPolyRing|).  Since the
+encodings are quite similar we shall describe them together, and
+merely highlight the differences.
+
+\begin{itemize}
+\item Key \blueverb|_type| has associated value an object with keys
+  \begin{itemize}
+  \item Key \blueverb|name| \textit{(string)} either \greenverb|MPolyRingElem| or \greenverb|PolyRingElem|
+  \item key \blueverb|params| \textit{(object)} (usu.~via a ``ref'') with keys
+    \begin{itemize}
+    \item key \blueverb|_type| \textit{(string)} either \greenverb|MPolyRing| or \greenverb|PolyRing| (resp.)
+    \item key \blueverb|data| \textit{(object)} with keys
+      \begin{itemize}
+      \item key \blueverb|base_ring| \textit{(string or object)} with associated value the serialization of a ring (typically via a ``ref'') \phantom{$\mathstrut$}
+    \item key \blueverb|symbols| \textit{(array of strings)} being the names of the indeterminates of the polynomial ring~---~the names are unrestricted (\eg~there may be repeats); in the case of a \verb|PolyRing| the array must have length 1
+      \end{itemize}
+    \end{itemize}
+  \end{itemize}
+\item key \blueverb|data| \textit{(array of terms)}  being a \textit{list of terms in the polynomial};\\
+  each \textbf{term} itself is encoded as an \textit{array} of size 2:
+  \begin{itemize}
+  \item Case \verb|MPolyRing|: entry 1 is an array of exponents, each exponent is a decimal string for a non-negative integer; the length of the array must be equal to the number of indeterminates in the polynomial ring
+  \item Case \verb|PolyRing|: entry 1 is a decimal string for a non-negative integer
+    \item Both cases: entry 2 is the serialization of an element of the coefficient ring \verb|base_ring|
+  \end{itemize}
+\end{itemize}
+
+The polynomial represented is the sum of the terms: if there are no terms then it is zero.
+Currently there is no restriction on the terms: zero coefficients are permitted,
+duplicate exponents are permitted, the terms are not ordered.  A good serialization
+will not produce terms with zero coefficients nor two terms with the same exponents.
+
+\red{Discuss: If hints (see Section~\ref{sec:hints}) are later
+  permitted, some systems may declare that the terms have distinct
+  exponents and are in a specific order~---~is this ever useful?}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Examples and Non-examples}
+\label{sec:examples}
+
+Here are some examples clarifying aspects of {\MaRDIJSON} including potential pitfalls.
+
+
+\subsection{Building a database/archive piecemeal}
+
+Imagine we want to build an archive/database of polynomials in $\QQ[x]$
+with some special property.  Moreover we plan to build the archive piece
+by piece.  But we want that all the polynomials are elements of the same
+ring.
+
+One approach to achieve this is the following.  Using OSCAR create the
+polynomial ring which is to contain all the polynomials, and then save
+this ring in a {\MaRDIJSON} file (\eg~save the polynomial $0$).  Then
+each time a new part of the archive is to be generated, read the saved
+copy of the zero polynomial, and extract its \verb|parent|~---~to obtain the ring $\QQ[x]$, rather than building a new copy of $\QQ[x]$.  Compute
+the next part of the archive as elements of this parent, and save them.
+This approach will ensure that the newly saved polynomials are in a
+ring \textit{with the same UUID} (and same parameters) as all the
+other polynomials in the archive.
+
+If the archive is spread across several files, we might want to put
+them together into one large file.  There are two obvious approaches
+to put the pieces of the archive together:
+\begin{itemize}
+\item carefully edit the files~---~take all the polynomials, {\&} just 1 copy of \blueverb|_refs|
+\item read the pieces of the archive into OSCAR to obtain several
+  lists/vectors, concatenate these lists then write the final result
+  to a new {\MaRDIJSON} file~---~simpler and safer!
+\end{itemize}
+
+
+\red{Discuss: The idea of storing in a JSON file the zero element of the
+  polynomial ring can obviously be generalized.  This leads to the
+  idea of having a ``database'' of algebraic structures which is to be
+  loaded at the start of every session where one may wish to
+  (de-)serialize data.  This would give fixed UUIDs for
+  ``commonly used'' types, at least wherever the ``database'' is
+  reachable.  Such a database could be ``project-wide''.}
+
+
+\subsection{Interaction of {\MaRDIJSON} and caching}
+\label{sec:InteractionWithCaching}
+
+OSCAR's policy on caching of parents is not yet set in stone:
+there are good arguments for caching, and other good arguments
+against caching.  It may even become possible for the user to
+set a flag saying whether caching should be used or not.  We
+give here a cautionary example about the interaction of caching
+and {\MaRDIJSON}.
+
+Suppose that the file \verb|f1.json| contains a polynomial
+saved in {\MaRDIJSON} format.  Consider the following excerpt
+of an OSCAR session:
+\begin{verbatim}
+julia>  # Several commands suppressed; caching is active
+julia>  f = load("f1.json");
+julia>  save("f2.json", f);
+\end{verbatim}
+We might hope that the files \verb|f1.json| and \verb|f2.json|
+are identical; that is too optimistic because the order in which
+key--value pairs are saved could vary.  In fact the situation is
+more grave.  Consider the following brand new OSCAR session:
+\begin{verbatim}
+julia>  # DISABLE caching
+julia>  f1 = load("f1.json");
+julia>  f2 = load("f2.json");
+julia>  f1 == f2  # gives ERROR!
+\end{verbatim}
+The polynomials \verb|f1| and \verb|f2| belong to different rings.
+
+In the first excerpt the ring to which \verb|f| belongs is cached,
+and had already been used in a serialization, thereby acquiring its
+UUID for that session.  When reading the file \verb|f1.json|,
+OSCAR actually put \verb|f| into the cached ring, whose UUID is
+different from the UUID stored in the file \verb|f1.json|.  Serializing
+\verb|f| to the file \verb|f2.json| then put into the \verb|_refs|
+section the pre-existing ring in the first OSCAR session with its UUID.
+In the second OSCAR session, with caching disabled, the two rings
+are now regarded as different (even though their construction was
+identical).
+
+\textbf{NOTE:} Bear in mind that other systems may have different
+caching strategies (\eg~CoCoA currently caches only $\ZZ$ and $\QQ$).
+
+
+\subsubsection{Same mathematical object but different representations}
+
+As already noted OSCAR has several different representation of, say,
+$\ZZ/3\ZZ$.  Moreover, \verb|residue_ring(ZZ,3)| produces a result
+which OSCAR ``has forgotten'' is a field, whereas
+\verb|residue_field(ZZ,3)| produces a different type of OSCAR object
+which represents exactly the same mathematical structure, and which
+\textit{is} recognized as a field.
+
+Other systems, including CoCoA, always recognize $\ZZ/3\ZZ$ as a
+field, so for instance the OSCAR values \verb|residue_ring(ZZ,3)| and
+\verb|residue_field(ZZ,3)| will map into CoCoA as a finite field
+structure.  Consider a system XYZ (\eg~CoCoA) which uses a single
+structure to represent $\ZZ/3\ZZ$ and in which these structures are
+shared/cached; then along the lines of the example in
+Section~\ref{sec:InteractionWithCaching}, we can easily create a
+situation where a simple ``echo'' from OSCAR to XYZ and back could
+``silently move'' an element of \verb|residue_ring(ZZ,3)| into
+\verb|residue_field(ZZ,3)|, or \textit{vice versa.}  \red{Is this a bug?}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Commentary on Current Prototype}
+\label{sec:commentary}
+
+The current (2024-05-23) prototype is strongly OSCAR-1.1-centric.  This is
+unsurprising given how the prototype was developed; it also ensures
+that the implementation in OSCAR is short and simple.  Here we
+highlight aspects of the current prototype which need to be discussed
+and probably altered~---~however, this discussion needs to be based
+partly on direct experience using {\MaRDIJSON} for archiving or
+communicating between different systems, so will likely extend over a
+period of time.
+
+Below is a list of some points to be discussed; the order is
+not of significance.
+%% ~---~however, other systems most likely need to ``work
+%% around'' some OSCAR-specific aspects.  Reducing the strong
+%% OSCAR-centricity will probably make the OSCAR implementation
+%% a bit longer, but will be beneficial to other systems.
+%% Here are some comments about aspects which likely need to be
+%% modified:
+\begin{itemize}
+  \setlength{\itemsep}{3pt}
+\item In {\MaRDIJSON} the key-value pair with key \blueverb|_refs| is
+  a mechanism for allowing sharing during de-serialization.  For instance,
+  \verb|QQField| is not placed inside \blueverb|_refs| because OSCAR only
+  ever has a unique copy of the field of rational numbers, but a polynomial
+  ring is placed inside \blueverb|_refs| because in OSCAR two distinct calls
+  to \verb|polynomial_ring| with the same parameters will/might produce two
+  distinct polynomial rings (which are, of course, canonically isomorphic).
+  The situation for prime finite fields is less clear: currently in OSCAR
+  the constructor \verb|GF| uses ``caching'' to ensure that the same
+  identical finite field is produced by two calls with the same argument.
+  The same applies to the (less public) constructor \verb|Native.GF|.
+  While the {\MaRDIJSON} serialization of a polynomial over \verb|GF(3)|
+  does place the finite field in \verb|_refs|, the serialization of
+  a polynomial over \verb|Native.GF(3)| does not place the finite field
+  in \verb|_refs|.  This latter approach is unsafe because an OSCAR
+  instance with caching disabled will create and use several instances
+  of $\FF_3$ where a single unique instance was desired/expected.
+
+\item OSCAR offers complete liberty when specifying variable names for
+  polynomial rings; most other systems (incl.~CoCoA and Magma) impose
+  limitations.  Thus, in general, the de-serialization of a polynomial
+  may preserve only the mathematical structure but not the variable
+  names (aka.~indeterminate names).  This is not a problem for operations
+  such as ``remote procedure call'', but could be disconcerting when
+  reading polynomials from an archive or sending a polynomial from
+  one system to another.  \red{How to resolve this?}
+
+  %% {\MaRDIJSON} necessarily has to handle these names when
+  %% serializing a polynomial ring, as otherwise reading the object into
+  %% a separate instance of OSCAR cannot produce a result ``optically equivalent''
+  %% to the original.  Other systems (such as CoCoA and Magma) impose
+  %% restrictions on the variable names: \eg~in CoCoA variable names must be
+  %% distinct, and only certain characters are permitted.  Here are two
+  %% possible approaches:
+  \begin{itemize}
+  \item Serializing a polynomial using system XYZ, and then de-serializing
+    the resulting {\MaRDIJSON} object using the same system XYZ (or a compatible
+    version of XYZ) must surely preserve the names.  This requires that the
+    full names be recorded in the serialization.  The hint mechanism
+    (see Section~\ref{sec:hints}) could be useful here!
+
+  \item Maybe {\MaRDIJSON} could guarantee/require that simple names be
+    respected (but note that CoCoA currently requires that indeterminate
+    names be distinct).  \red{To do this we need to establish precisely
+    what the rules are: limited alphabet, and limited length presumably, and maybe all names distinct.}
+  \end{itemize}
+
+\item The current {\MaRDIJSON} serializations sometimes expose too
+  many implementation details of OSCAR.  For instance, there are at
+  least three different representations for small prime finite fields, even
+  though they are mathematically identical: \verb|GF(3)|,
+  \verb|Native.GF(3)|, and \verb|Native.GF(ZZ(3))|.  These OSCAR
+  objects serialize differently, thus exposing OSCAR implementation
+  details which depend on platform characteristics (\eg~bit-width of
+  machine integers), and which may easily change in the future.  This
+  platform dependency is not compatible with our strict/rigorous interpretation of the FAIR principles.
+  Again, the hint mechanism (see Section~\ref{sec:hints}) could be
+  useful here: serialize all prime finite fields using a common key
+  \verb|FiniteField|, and when appropriate, include an OSCAR hint to
+  indicate the preferred OSCAR representation.
+
+
+\item Another example where {\MaRDIJSON} reflects too much of the design
+  of OSCAR is with polynomials: OSCAR uses distinct types for multivariate
+  and univariate polynomials~---~there are good reasons for the distinction.
+  Consequently, {\MaRDIJSON} has two pairs of keys for polynomial serializations:
+  namely~\verb|MPolyRing| and \verb|MPolyRingElem| for multivariate, and
+  \verb|PolyRing| and \verb|PolyRingElem| for univariate.
+  The distinction appears to derive from an internal OSCAR design decision
+  to handle univariate and multivariate polynomial rings quite separately
+  (\eg~because some operations make sense only for univariate polynomials,
+  and there is a simpler internal representation for univariate polynomials).
+\red{Discuss: Is it genuinely appropriate to make this distinction in {\MaRDIJSON}?}
+
+%% \item Another seemingly ``hidden'' difference between \verb|MPolyRingElem| and
+%%   \verb|PolyRingElem| is that they \textit{imply} different encodings
+%%   of the polynomials.  It would be clearer to state explicitly what the
+%%   encoding is: \eg~\verb|DenseUnivariate| or \verb|SparseUnivariate|.
+%%   The encoding could be given separately for each polynomial: good if we
+%%   want to serialize a list of polynomials using different encodings
+%%   depending on the polynomial, not so good if we have many small polynomials
+%%   all to be encoded the same way.
+
+\item We should discuss better decoupling (in {\MaRDIJSON}) of the mathematical
+  type and the ``encoding'' of the value.  The point above highlights the lack
+  of decoupling for polynomials; another obvious example are matrices.
+  The ``mathematical type'' of matrix is specified by is base ring and its
+  dimensions, but the ``encoding'' could be dense (\eg~row-by-row) or sparse.
+  A potential advantage of decoupling is that different encodings could be
+  used for elements of a list: \eg~in a list of matrices the serialization
+  of each individual matrix would say whether it is via a dense or sparse
+  encoding.  \red{Discuss the idea of decoupling?  Are the benefits genuine?
+  What are the disadvantages?}
+\end{itemize}
+
+
+\subsection{Question: finite fields}
+\label{sec:QnFiniteFields}
+
+Here is question about prime finite fields are represented in {\MaRDIJSON};
+while the question is very specific it easily generalizes to other
+types of mathematical object.  The main point is \textit{How specific
+  should the representation in {\MaRDIJSON} be?}
+
+Here is a quick summary of various levels of specificity:
+\begin{itemize}
+\item a quotient-ring (with base ring $\ZZ$ and some principal(?) ideal)
+\item a quotient-ring (with base ring $\ZZ$ and some maximal ideal)
+\item a quotient-ring-of-$\ZZ$ by a principal ideal (since $\ZZ$ is a PID)
+\item a quotient-ring-of-$\ZZ$ by a maximal, principal ideal
+\item a finite-field (with given characteristic and extension degree)
+\item a prime-finite-field (with given characteristic)
+\item specifics of the implementation (\eg~wordsize characteristic)
+\end{itemize}
+
+The indication that an ideal is maximal could be achieved via the hint
+mechanism (see Section~\ref{sec:hints}).
+
+The current OSCAR implementation uses the finest representation (which
+is likely \textit{platform dependent}).  This representation exposes
+some ``inner details'' of OSCAR, and these in turn are strongly
+influenced by implementation details in the FLINT library.  Making
+{\MaRDIJSON} dependent on inner details of OSCAR and/or FLINT seems to
+present a risk for future-proofing {\MaRDIJSON}: if the inner details
+change, must a new version of {\MaRDIJSON} defined?  This would be
+inconvenient, and not very scalable
+
+An advantage of using a higher level representation for prime finite fields
+is that {\MaRDIJSON} is simpler (\eg~fewer special keywords) and also
+closer to the mathematical abstraction.  A disadvantage is that a
+de-serializer must identify a subtree structure rather than simply a
+keyword (\eg~upon seeing a \verb|quotient_ring| the de-serializer
+must then check whether the subtree for the base ring corresponds to
+\verb|ZZRing|, and if so perform the appropriate special handling
+(which is likely platform dependent).
+
+
+\subsection{Proposal: Implementation hints}
+\label{sec:hints}
+
+\red{Here we present an idea for a new feature to be discussed.}  We have
+already given some instances where the idea could be useful.
+
+Hints are intended only to help guide towards a good implementation;
+they have no mathematical meaning.  So, if all hints from a
+{\MaRDIJSON} object were stripped out, the stripped {\MaRDIJSON}
+object still represents the same mathematical value~---~but maybe a
+receiver of the stripped {\MaRDIJSON} object will not choose the best
+implementation.
+
+OSCAR is a rich environment for symbolic computation, and offers
+more than one implementation of various mathematical constructs;
+the different implementations have differing compromises and features.
+For instance, finite fields: if the field is a small and prime then
+there is a simple and efficient implementation; fields which are
+either large or not prime can be handled by a slower, general implementation.
+Moreover, the exact meaning of ``small'' might depend on the platform
+on which OSCAR is running.
+
+To help guide a receiver of a {\MaRDIJSON} object the serialization
+of a mathematical construct may be accompanied by optional ``implementation hints'': there may be different hints for different systems (\eg~OSCAR, Magma, CoCoA).  Continuing with the example of finite fields: the prime, finite field of
+characteristic $7$ could be serialized as follows: (but see also Section~\ref{sec:QnFiniteFields})
+\begin{verbatim}
+  {
+    "type": "FiniteField",
+    "params": "7",
+    "hint":
+    {
+      "Oscar": "Nemo.fpField"
+    }
+  }
+\end{verbatim}
+Here there is no hint for Magma or CoCoA, but there is a hint for OSCAR.
+\blue{We may also want to have hints for every system: \eg~that an integer
+is prime}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusion}
+
+We have given a description of the current state of {\MaRDIJSON}.
+Some future changes will be ``backward-compatible'', so that old
+{\MaRDIJSON} serializations do not require updating; some will not be
+``backward-compatible'', meaning that some old {\MaRDIJSON}
+serializations must be modified (\eg~names of required keys have
+changed, or the structure of a value associated to a certain key has
+been altered).  The second sort of development will be accompanied by
+a program which can automatically update an old-style serialization to
+a new-style one; \red{[Discuss] in very rare circumstances the automatic updater may
+  report failure with a helpful message indicating how the update
+  could be achieved manually, \eg~if extra information is required
+  beyond that which can be deduced automatically?}
+
+The current definition of {\MaRDIJSON} is a good, concrete starting point
+but some important design aspects need to be revisited in the light of
+experience with implementation of {\MaRDIJSON} in CoCoA and in Magma
+(and also practical experience exchanging data between OSCAR and these
+systems.
+
+\goodbreak
+
+\section{Links and references}
+
+\begin{itemize}
+\item \textbf{[JSON-defn]}  Website \texttt{https://www.json.org/json-en.html}
+\item \textbf{[I-JSON]}  Website \texttt{https://datatracker.ietf.org/doc/html/rfc7493.html}
+\end{itemize}
+
+\end{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
